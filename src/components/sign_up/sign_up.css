@@ -1,52 +1,48 @@
-body {
-    margin: 0;
-    background-image: url('/src/assets/cg_blog.jpg');
-    width: 100%;
-    height: 600px;
+#sign_up_page {
+    background-image: url('/src/assets/images/cg_blog.jpg');
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
     background-size: cover;
     backdrop-filter: blur(1px);
+    content: none;
+    display: flex;
+    align-items: center;
 }
 
-#right1 {
-    float: left;
-    width: 50%;
-    height: 700px;
-}
-
-#left1 {
-    float: right;
-    width: 50%;
+#sign_up_page #left {
+    width: 60%;
     text-align: center;
-    margin-top: 150px;
-    color: white;
-}
-
-#left1 p {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 100px;
+    font-size: 125px;
     font-weight: bold;
 }
 
-.form1 {
-    margin: 0 auto;
+#sign_up_page #left a {
+    color: white;
+}
+
+#sign_up_page #form {
     width: 400px;
-    height: 470px;
-    text-align: center;
-    margin-top: 100px;
-    position: relative;
-    border-radius: 10px;
-    background-color: white;
-    opacity: .7;
-    padding: 5px;
+    height: 480px;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 20px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
 }
 
-.form :hover {
-    opacity: 1;
+#sign_up_page #welcome {
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-input {
+#sign_up_page input {
     width: 240px;
-    background-color: none;
     border-right-style: none;
     border-left-style: none;
     border-top-style: none;
@@ -56,45 +52,69 @@ input {
     cursor: pointer;
 }
 
-input:focus {
-    outline: none;
+#sign_up_page input:focus {
+    outline: none
 }
 
-button {
+#sign_up_page #btn_sign_up {
     width: 280px;
     background-color: none;
     border: none;
     padding: 12px 20px;
     border-radius: 10px;
     background-color: #0092e0ff;
-    color: white;
     font-weight: bold;
+    font-size: 20px;
+    color: white;
+    z-index: 10;
     cursor: pointer;
 }
 
-label {
-    color: black;
-    font-size: 20px;
-    font-family: 'Fira Sans Condensed', 'Poppins', sans-serif;
+#sign_up_page #btn_sign_up:hover {
+    color: black
 }
 
-#welcome {
-    color: black;
-    font-size: 40px;
-    font-weight: bold;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-#forgot {
+#sign_up_page #forgot {
     margin-left: 150px;
     text-decoration: none;
     color: #0092e0ff;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-span a {
+#sign_up_page a {
     text-decoration: none;
     color: #0092e0ff;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-weight: bold;
+}
+
+#sign_up_page a:hover {
+    text-decoration: underline;
+    color: #000;
+}
+
+#sign_up_page #left a:hover {
+    text-decoration: none;
+    color: #FFF;
+}
+
+@media (max-width:1100px) {
+    #sign_up_page {
+        flex-direction: column;
+        height: 100vh;
+        width: 100vw;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    #sign_up_page #left {
+        width: 100vw;
+        text-align: center;
+        color: white;
+        font-size: 5.5rem;
+        font-weight: bold;
+    }
+}
+
+@media (max-width:500px) {
+    #sign_up_page #form {
+        width: 80vw;
+    }
 }
