@@ -6,7 +6,7 @@ export default function SignIn() {
     return (
         <div id="sign_in_page">
             <div id="left">
-                BlogSite
+                <Link to="/">BlogSite</Link>
             </div>
             <form id="form">
                 <br />
