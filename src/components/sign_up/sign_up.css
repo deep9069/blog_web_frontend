@@ -96,6 +96,11 @@
     color: #FFF;
 }
 
+#sign_up_page .error{
+    color: red;
+    margin-left:40px;
+}
+
 @media (max-width:1100px) {
     #sign_up_page {
         flex-direction: column;

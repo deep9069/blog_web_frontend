@@ -2,7 +2,7 @@ import { HashRouter, Route, Routes, Link } from "react-router-dom";
 import BlogPage from "./components/blog_page/blog_page";
 import SignIn from "./components/sign_in/sign_in_page";
 import SignUp from "./components/sign_up/sign_up_page";
-import ErrorModel from "./models/error_model/error_model";
+// import ErrorModel from "./models/error_model/error_model";
 function App() {
   return (
     <HashRouter>
