@@ -14,7 +14,7 @@ function App() {
             <div>
               <Link to='sign-in'> Sign in </Link>
               <br />
-              <Link to='sign-up'> Sign up </Link>
+              <Link to='/sign-up'> Sign up </Link>
               <br />
               <Link to='/blogs'> blog page </Link>
             </div>

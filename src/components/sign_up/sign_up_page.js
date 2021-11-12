@@ -3,10 +3,13 @@ import "./sign_up.css";
 import { FiLock, FiMail, FiUser } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import axios from "axios";
-// import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 //default return func
-export default function SignUp() {
+export default function SignUp(props) {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const navigate = useNavigate();
   //state for handle form data
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,46 +25,55 @@ export default function SignUp() {
   //handling form change
   const handleNameChange = (event) => {
     setName(event.target.value);
+    setNameError(name === "");
+    console.log(name, nameError);
   };
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+    setEmailError(!re.test(String(email).toLowerCase()));
   };
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    setPasswordError(password.length < 8);
   };
   const handleConfirmPasswordChange = (event) => {
     setConfirmPassword(event.target.value);
+    setConfirmPasswordError(
+      confirmPassword !== password || confirmPassword.length < 8
+    );
   };
 
   //handle form submit
-  const handleFormSubmit = async () => {
-    validateForm();
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(nameError, emailError, passwordError, confirmPasswordError);
     if (
       nameError === false &&
       passwordError === false &&
       confirmPasswordError === false &&
       emailError === false
     ) {
-      console.log("hello");
-      const res = await axios.post(process.env.REACT_APP_URL + "user/signUP", {
-        name,
-        password,
-        email,
-      });
-      console.log(res);
+      try {
+        const res = await axios.post(
+          process.env.REACT_APP_URL + "user/signUP",
+          {
+            name,
+            password,
+            email,
+          }
+        );
+        console.log(res.status);
+        if (res.status === 201) {
+          //on successfully sign up
+          navigate("/sign-in", { replace: true });
+        }
+      } catch (err) {
+        console.log(err);
+      }
+      console.log("true");
     }
   };
 
-  function validateForm() {
-    const re =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    setNameError(name === "");
-    setPasswordError(password.length < 8);
-    setConfirmPasswordError(
-      confirmPassword !== password || confirmPassword.length < 8
-    );
-    setEmailError(!re.test(String(email).toLowerCase()));
-  }
   //jsx
   return (
     <div id='sign_up_page'>
@@ -77,7 +89,7 @@ export default function SignUp() {
             placeholder='Enter Name'
             onChange={handleNameChange}
           />
-          {nameError ? <div className='error'>Name is required</div> : null}
+          {nameError && <div className='error'>Name is required</div>}
         </div>
         <div>
           <FiMail fontSize='20px' />
@@ -87,9 +99,7 @@ export default function SignUp() {
             formNoValidate
             onChange={handleEmailChange}
           />
-          {emailError ? (
-            <div className='error'>Please enter valid email</div>
-          ) : null}
+          {emailError && <div className='error'>Please enter valid email</div>}
         </div>
         <div>
           <FiLock fontSize='20px' />
@@ -99,9 +109,7 @@ export default function SignUp() {
             formNoValidate
             onChange={handlePasswordChange}
           />
-          {passwordError ? (
-            <div className='error'>Min length should be 8</div>
-          ) : null}
+          {passwordError && <div className='error'>Min length should be 8</div>}
         </div>
         <div>
           <FiLock fontSize='20px' />
@@ -111,13 +119,13 @@ export default function SignUp() {
             formNoValidate
             onChange={handleConfirmPasswordChange}
           />
-          {confirmPasswordError ? (
+          {confirmPasswordError && (
             <div className='error'>
-              {confirmPassword.length < 8
+              {confirmPasswordError && confirmPassword.length < 8
                 ? "Min length should be 8"
                 : "Confirm password not equal to password"}
             </div>
-          ) : null}
+          )}
         </div>
         <button id='btn_sign_up'>Continue</button>
         <span>
