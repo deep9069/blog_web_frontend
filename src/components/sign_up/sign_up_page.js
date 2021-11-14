@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
+import { useAuth } from "../../context/authContext";
 
 const initialValues = {
   name: "",
@@ -39,6 +40,10 @@ const validate = (values) => {
 //default return func
 export default function SignUp(props) {
   const navigate = useNavigate();
+
+  // eslint-disable-next-line no-unused-vars
+  const [auth, userSignIn] = useAuth(useAuth);
+
   const formik = useFormik({
     initialValues,
     validate,
@@ -55,19 +60,27 @@ export default function SignUp(props) {
       )
     ) {
       //if all field are validated send request to backend
-
       try {
-        const res = await axios.post(
-          process.env.REACT_APP_URL + "user/signUP",
-          formik.values
-        );
-        console.log(res.status);
-        if (res.status === 201) {
-          //on successfully sign up
-          navigate("/sign-in", { replace: true });
-        }
+        await axios
+          .post(process.env.REACT_APP_URL + "user/signUp", formik.values)
+          .then(async (res) => {
+            if (res.status === 201) {
+              //on successfully sign up
+              userSignIn(res.data.user.name, res.data.user.email);
+              localStorage.setItem(
+                "auth",
+                JSON.stringify({
+                  userSignedIn: true,
+                  name: res.data.user.name,
+                  email: res.data.user.email,
+                })
+              );
+              navigate("/blogs");
+            } else alert(res.data);
+          });
       } catch (err) {
-        console.log(err);
+        if (err.response) alert(err.response.data.message);
+        else alert(err.response.data);
       }
     }
   };
@@ -143,7 +156,7 @@ export default function SignUp(props) {
         </div>
         <button id='btn_sign_up'>Continue</button>
         <span>
-          Already Member?<Link to='/sign-in'>Login</Link>
+          Already Member?<Link to='/signIn'>Login</Link>
         </span>
       </form>
     </div>

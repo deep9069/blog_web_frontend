@@ -76,6 +76,12 @@
     cursor: pointer;
 }
 
+
+#sign_in_page .error{
+    color: red;
+    margin-left:40px;
+}
+
 #sign_in_page #btn_sign_in:hover {
     color: black
 }

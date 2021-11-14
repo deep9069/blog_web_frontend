@@ -1,55 +1,120 @@
-import React, { useState } from "react";
+import React from "react";
 import "./sign_in.css";
 import { FiLock, FiMail } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import { useAuth } from "../../context/authContext";
+
+const initialValues = {
+  email: "",
+  password: "",
+};
+
+const validate = (values) => {
+  let errors = {};
+  if (!values.email) {
+    errors.email = "Email is required";
+  } else if (
+    !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+      values.email
+    )
+  ) {
+    errors.email = "Invalid email";
+  }
+  if (values.password.length < 8) {
+    errors.password = "Min length should be 8";
+  }
+  return errors;
+};
+
 export default function SignIn() {
+  // eslint-disable-next-line no-unused-vars
+  const [auth, userSignIn] = useAuth(useAuth);
+  const navigate = useNavigate();
+  const formik = useFormik({
+    initialValues,
+    validate,
+  });
 
-  //initializing states for form email and password fields
-  const [email,setEmail] = useState("");
-  const [password,setPassword] = useState("");
+  //handling form submission
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    if (!(formik.errors.email || formik.errors.password)) {
+      //if all field are validated send request to backend
+      try {
+        await axios
+          .post(process.env.REACT_APP_URL + "user/signIn", formik.values)
+          .then(async (res) => {
+            if (res.status === 202) {
+              //on successfully sign in
+              userSignIn(res.data.user.name, res.data.user.email);
+              localStorage.setItem(
+                "auth",
+                JSON.stringify({
+                  userSignedIn: true,
+                  name: res.data.user.name,
+                  email: res.data.user.email,
+                })
+              );
+              navigate("/blogs");
+            } else alert("Please Reload some error has occurred");
+          });
+      } catch (err) {
+        if (err.response) alert(err.response.data.message);
+        else alert(err);
+      }
+    }
+  };
 
-
-  //handle form state changes
-  const handleEmailChange = event =>{
-    setEmail(event.target.value);
-  }
-  const handlePasswordChange = event =>{
-    setPassword(event.target.value);
-  }
-
-  const handleFormSubmit = async ()  => {
-    console.log(email,password);
-
-    const res = await axios.post(process.env.REACT_APP_URL + "user/signIn",{email,password});
-    console.log(res);
-  }
-  
   //jsx
   return (
     <div id='sign_in_page'>
       <div id='left'>
         <Link to='/'>BlogSite</Link>
       </div>
-      <form id='form' onSubmit = {handleFormSubmit}>
+      <form id='form' onSubmit={handleFormSubmit}>
         <p id='welcome'>Welcome Back</p>
         <div>
           <FiMail fontSize='20px' />
-          <input type='email' placeholder='Email' required value = {email} onChange = {handleEmailChange}/>
+          <input
+            type='text'
+            placeholder='Email'
+            formNoValidate
+            name='email'
+            onChange={formik.handleChange}
+            value={formik.values.email}
+            onBlur={formik.handleBlur}
+            autoFocus
+          />
+          {formik.touched.email && formik.errors.email && (
+            <div className='error'>{formik.errors.email}</div>
+          )}
         </div>
         <div>
           <FiLock fontSize='20px' />
-          <input type='password' placeholder='Password' required minLength = {8} value = {password} onChange = {handlePasswordChange} />
+          <input
+            type='password'
+            placeholder='Enter Password'
+            formNoValidate
+            name='password'
+            onChange={formik.handleChange}
+            value={formik.values.password}
+            onBlur={formik.handleBlur}
+          />{" "}
+          {formik.touched.password && formik.errors.password && (
+            <div className='error'>{formik.errors.password}</div>
+          )}
         </div>
         <span id='forgot'>
           <Link to='/forget-password'>Forgot Password ?</Link>
         </span>
         <button id='btn_sign_in'>Continue </button>
         <span>
-          New to blogSite? <Link to='/sign-up'>Join now</Link>
+          New to blogSite? <Link to='/signUp'>Join now</Link>
         </span>
       </form>
     </div>
   );
 }
-
