@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./sign_up.css";
 import { FiLock, FiMail, FiUser } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -31,6 +31,9 @@ const validate = (values) => {
   if (values.password.length < 8) {
     errors.password = "Min length should be 8";
   }
+  if (values.confirmPassword.length < 8) {
+    errors.confirmPassword = "Min length should be 8";
+  }
   if (values.password !== values.confirmPassword) {
     errors.confirmPassword = "Password mismatch";
   }
@@ -40,7 +43,7 @@ const validate = (values) => {
 //default return func
 export default function SignUp(props) {
   const navigate = useNavigate();
-
+  const [formSubmitted, setFormSubmitted] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [auth, userSignIn] = useAuth(useAuth);
 
@@ -51,6 +54,7 @@ export default function SignUp(props) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    setFormSubmitted(true);
     if (
       !(
         formik.errors.name ||
@@ -120,7 +124,7 @@ export default function SignUp(props) {
             value={formik.values.email}
             onBlur={formik.handleBlur}
           />
-          {formik.touched.email && formik.errors.email && (
+          {(formSubmitted || formik.touched.email) && formik.errors.email && (
             <div className='error'>{formik.errors.email}</div>
           )}
         </div>
@@ -135,9 +139,10 @@ export default function SignUp(props) {
             value={formik.values.password}
             onBlur={formik.handleBlur}
           />
-          {formik.touched.password && formik.errors.password && (
-            <div className='error'>{formik.errors.password}</div>
-          )}
+          {(formSubmitted || formik.touched.password) &&
+            formik.errors.password && (
+              <div className='error'>{formik.errors.password}</div>
+            )}
         </div>
         <div>
           <FiLock fontSize='20px' />
@@ -150,9 +155,10 @@ export default function SignUp(props) {
             value={formik.values.confirmPassword}
             onBlur={formik.handleBlur}
           />
-          {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-            <div className='error'>{formik.errors.confirmPassword}</div>
-          )}
+          {(formSubmitted || formik.touched.confirmPassword) &&
+            formik.errors.confirmPassword && (
+              <div className='error'>{formik.errors.confirmPassword}</div>
+            )}
         </div>
         <button id='btn_sign_up'>Continue</button>
         <span>

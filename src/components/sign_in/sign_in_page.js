@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./sign_in.css";
 import { FiLock, FiMail } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -30,6 +30,7 @@ const validate = (values) => {
 };
 
 export default function SignIn() {
+  const [formSubmitted, setFormSubmitted] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [auth, userSignIn] = useAuth(useAuth);
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ export default function SignIn() {
   //handling form submission
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    setFormSubmitted(true);
     if (!(formik.errors.email || formik.errors.password)) {
       //if all field are validated send request to backend
       try {
@@ -88,7 +90,7 @@ export default function SignIn() {
             onBlur={formik.handleBlur}
             autoFocus
           />
-          {formik.touched.email && formik.errors.email && (
+          {(formSubmitted || formik.touched.email) && formik.errors.email && (
             <div className='error'>{formik.errors.email}</div>
           )}
         </div>
@@ -103,9 +105,10 @@ export default function SignIn() {
             value={formik.values.password}
             onBlur={formik.handleBlur}
           />{" "}
-          {formik.touched.password && formik.errors.password && (
-            <div className='error'>{formik.errors.password}</div>
-          )}
+          {(formSubmitted || formik.touched.password) &&
+            formik.errors.password && (
+              <div className='error'>{formik.errors.password}</div>
+            )}
         </div>
         <span id='forgot'>
           <Link to='/forget-password'>Forgot Password ?</Link>
