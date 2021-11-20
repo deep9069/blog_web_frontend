@@ -1,0 +1,54 @@
+{
+    "data" : [
+        {
+            "id": 1,
+            "blogCategory": "Highways",
+            "blogTitle" : "National highway of india",
+            "slug": "",
+            "postedOn": "nov 19, 2021",
+            "author": "Unknown",
+            "blogImage": "https://images.pexels.com/photos/681335/pexels-photo-681335.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+            "blogText": "The National highways in India are a network of trunk roads owned by the Ministry of Road Transport and Highways. It is constructed and managed by the National Highway Authority of India (NHAI), the National Highways and Infrastructure Development Corporation Limited (NHIDCL), and the public works departments (PWD) of state governments."
+        },
+        {
+            "id": 2,
+            "blogCategory": "Technlogy",
+            "blogTitle": "Tesla, Inc.",
+            "slug": "",
+            "postedOn": "Feb 21, 2018",
+            "author": "Unknown",
+            "blogImage": "https://images.pexels.com/photos/258083/pexels-photo-258083.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+            "blogText": "Tesla, Inc. (/ˈtɛslə/ TESS-lə or /ˈtɛzlə/ TEZ-lə[b]) is an American electric vehicle and clean energy company based in Palo Alto, California, United States. Tesla designs and manufactures electric cars, battery energy storage from home to grid-scale, solar panels and solar roof tiles, and related products and services. In 2020, Tesla had the most sales of battery electric vehicles and plug-in electric vehicles, capturing 16% of the plug-in market (which includes plug-in hybrids) and 23% of the battery-electric (purely electric) market. Through its subsidiary Tesla Energy, the company develops and is a major installer of photovoltaic systems in the United States. Tesla Energy is also one of the largest global suppliers of battery energy storage systems, with 3 gigawatt-hours (GWh) installed in 2020."
+        },
+        {
+            "id": 3,
+            "blogCategory": "automobile",
+            "blogTitle": "Suzuki jimny",
+            "slug": "",
+            "postedOn": "Feb 21, 2018",
+            "author": "Unknown",
+            "blogImage": "https://i0.wp.com/www.autoblog.gr/wp-content/uploads/2020/09/Suzuki-Jimny-Light-Commercial-Vehicle-1.jpg?resize=696%2C492&ssl=1",
+            "blogText": "The Suzuki Jimny (Japanese: スズキ・ジムニー, Suzuki Jimunī) is a line of four-wheel drive off-road mini SUVs, manufactured and marketed by Japanese automaker Suzuki since April 1970, now in its fourth generation.Originally belonging to the Kei class, Japan's light automobile tax/legal class, the company continues to market a Kei compliant version for the Japanese and global markets as the Jimny, as well as versions that exceed kei class limitations. Suzuki has marketed 2.85 million Jimnys in 194 countries through September 2018"
+        },
+        {
+            "id": 4,
+            "blogCategory": "modern world",
+            "blogTitle": "Economic development",
+            "slug": "",
+            "postedOn": "nov 18, 2021",
+            "author": "Albi",
+            "blogImage": "https://i1.wp.com/www.autoblog.gr/wp-content/uploads/2020/09/byd-ebus_0000.jpg?resize=696%2C435&ssl=1",
+            "blogText": "Economic Development is programs, policies or activities that seek to improve the economic well-being and quality of life for a community. ... Each community has its own opportunities, challenges, and priorities. Your economic development planning must include the people who live and work in the community."
+        }
+        ,{
+            "id": 5,
+            "blogCategory": "electric cars",
+            "blogTitle": "modern cars",
+            "slug": "",
+            "postedOn": "Feb 21, 2018",
+            "author": "Albi",
+            "blogImage": "https://images.unsplash.com/photo-1582201872911-67877db5fb38?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fGVsZWN0cmljJTIwY2FyfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
+            "blogText": "An electric car or battery electric car is an automobile that is propelled by one or more electric motors, using energy stored in batteries. Compared to internal combustion engine (ICE) vehicles, electric cars are quieter, have no exhaust emissions, and lower emissions overall.[1] In the United States and the European Union, as of 2020, the total cost of ownership of recent electric vehicles is cheaper than that of equivalent ICE cars, due to lower fueling and maintenance costs.[2][3] Charging an electric car can be done at a variety of charging stations; these charging stations can be installed in both houses and public areas."
+        }
+    ]
+}
